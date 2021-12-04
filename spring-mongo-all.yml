@@ -1,0 +1,143 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springapp
+  namespace: test-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: springapp
+  template:
+    metadata:
+      name: springapppod
+      labels:
+        app: springapp
+      spec:
+        containers:
+        - name: springappcontainer
+          image: dockerhandson/spring-boot-mongo
+          ports: 
+          - containerPort: 8080
+          resources: # hpa
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "256Mi"
+          env:
+          - name: MONGO_DB_USERNAME
+            value: devdb
+          - name: MONGO_DB_PASSWORD
+            value: devdb@123
+          - name: MONGO_DB_HOSTNAME
+            value: mongo
+---
+  #springApp service
+apiVersion: v1
+kind: Service
+metadata:
+  name: springappsvc
+  namespace: test-ns
+spec:
+  type: NodePort
+  selector:
+    app: springapp
+  ports:
+  - port : 80
+    targetPort: 8080
+    nodePort: 30791
+---
+##HPA
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpadeploymentautoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: springapp
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 40
+  - type: Resource
+    resource:
+     name: memory
+     target:
+      type: Utilization
+      averageUtilization: 40
+---
+  ##MongoDB
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mongodbrc
+  namespace: test-ns
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      name: mongodbpod
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongodbcontainer
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: devdb
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: devdb@123
+        volumeMounts:
+      # - name: mongodbnfs
+      #   mountPath: /data/db
+        - name: mongo-db-pvc
+          mountPath: /data/db
+      volumes:
+      - name: mongo-db-pvc
+        persistentVolumeClaim:
+          claimName: pvc-nfs
+     # - name: mongodbnfs
+     #   nfs:
+     #     server: 172.31.47.3 # Update NFS Server IP And Path Based on your setup
+      #    path: /mnt/share
+---
+  ## mongo db service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongoservice
+  namespace: test-ns
+spec:
+  type: ClusterIP
+  selector:
+    app: mongo
+  ports:
+  - port: 27017
+    targetPort: 27017  
+---
+ ##PVC
+ apiVersion: v1
+ kind: PersistentVolumeClaim
+ metadata:
+   name: pvc-nfs
+ spec:
+   storageClassName: manual
+   accessModes:
+   - ReadWriteOnce
+   resources:
+   requests:
+     storage: 100Mi
