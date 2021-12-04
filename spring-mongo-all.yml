@@ -13,26 +13,26 @@ spec:
       name: springapppod
       labels:
         app: springapp
-      spec:
-        containers:
-        - name: springappcontainer
-          image: harishgowdabr/spring-boot-mongo-docker:BUILDNUMBER
-          ports: 
-          - containerPort: 8080
-          resources: # hpa
-            requests:
-              cpu: "100m"
-              memory: "64Mi"
-            limits:
-              cpu: "100m"
-              memory: "256Mi"
-          env:
-          - name: MONGO_DB_USERNAME
-            value: devdb
-          - name: MONGO_DB_PASSWORD
-            value: devdb@123
-          - name: MONGO_DB_HOSTNAME
-            value: mongo
+    spec:
+      containers:
+      - name: springappcontainer
+        image: harishgowdabr/spring-boot-mongo-docker:BUILDNUMBER
+        ports:
+        - containerPort: 8080
+        resources: # hpa
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "100m"
+            memory: "256Mi"
+        env:
+        - name: MONGO_DB_USERNAME
+          value: devdb
+        - name: MONGO_DB_PASSWORD
+          value: devdb@123
+        - name: MONGO_DB_HOSTNAME
+          value: mongo
 ---
   #springApp service
 apiVersion: v1
@@ -127,7 +127,7 @@ spec:
     app: mongo
   ports:
   - port: 27017
-    targetPort: 27017  
+    targetPort: 27017
 ---
  ##PVC
  apiVersion: v1
@@ -139,5 +139,5 @@ spec:
    accessModes:
    - ReadWriteOnce
    resources:
-   requests:
-     storage: 100Mi
+     requests:
+       storage: 100Mi
