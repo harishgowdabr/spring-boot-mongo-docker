@@ -1,5 +1,6 @@
 node{
     def buildNumber = BUILD_NUMBER
+    def image = harishkumarbr/spring-boot-mongo-docker:${buildNumber}
     stage("Clone the Code")
     {
        git credentialsId: '32fa2aa1-2f8d-4f0a-9d6d-8aca681307a4', url: 'https://github.com/harishgowdabr/spring-boot-mongo-docker.git'
@@ -11,7 +12,7 @@ node{
     }//build
     stage("docker build ")
     {
-        sh "docker build -t harishkumarbr/spring-boot-mongo-docker:${buildNumber} ."
+        sh "docker build -t ${image} ."
         
     }//build Image
     stage("Docker login and push"){
@@ -20,7 +21,7 @@ node{
           
                   }
                   
-         sh "docker push harishkumarbr/spring-boot-mongo-docker:${buildNumber}"
+         sh "docker push ${image}"
         
     }//
     
