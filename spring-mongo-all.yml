@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: springappcontainer
-        image: harishgowdabr/spring-boot-mongo-docker:BUILD_NUMBER
+        image: images #harishkumarbr/spring-boot-mongo-docker:BUILD_NUMBER
         ports:
         - containerPort: 8080
         resources: # hpa
