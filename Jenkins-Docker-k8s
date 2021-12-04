@@ -26,6 +26,7 @@ node{
     }//
     
     stage("K8s pod"){
+         sh "sed -i 's/images/${image}/g' spring-mongo-all.yml"
          sh "sed -i 's/BUILD_NUMBER/${buildNumber}/g' spring-mongo-all.yml"
          sh "echo started kubectl commands"
          sh "kubectl delete all --all -n test-ns"
