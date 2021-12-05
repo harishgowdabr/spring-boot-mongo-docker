@@ -30,8 +30,9 @@ node{
          sh "sed -i 's/BUILD_NUMBER/${buildNumber}/g' spring-mongo-all.yml"
          sh "echo started kubectl commands"
          sh "kubectl delete all --all -n test-ns"
-       //  sh "kubectl delete pvc pvc-nfs -n test-ns"
-         sh "kubectl  apply -f nfsStorageClass.yml"   //time activity
+        sh "kubectl delete pvc pvc-nfs -n test-ns"
+         sh "kubectl  apply -f nfsStorageClass.yml"   // one time activity
+         sh "kubectl apply -f k8-config-secrets.yml"
         sh "kubectl apply -f spring-mongo-all.yml"
         sh " echo end of Kubernets commandds"
     }
