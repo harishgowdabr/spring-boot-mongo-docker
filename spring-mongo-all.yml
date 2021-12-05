@@ -144,20 +144,20 @@ spec:
        storage: 100Mi
 ---
 #PV
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-nfs-pv
-  namespace: test-ns
-  labels:
-    type: local
-spec:
-   storageClassName: manual
-   capacity:
-     storage: 1Gi
-   accessModes:
-   - ReadWriteMany
-   nfs:
-     server: 172.31.47.3
-     path: "/mnt/share"              
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+ # name: pv-nfs-pv
+  #namespace: test-ns
+ # labels:
+  #  type: local
+#spec:
+#   storageClassName: manual
+ #  capacity:
+  #   storage: 1Gi
+   #accessModes:
+  # - ReadWriteMany
+  # nfs:
+   #  server: 172.31.47.3
+    # path: "/mnt/share"              
        
