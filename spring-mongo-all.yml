@@ -136,7 +136,7 @@ spec:
    name: pvc-nfs
    namespace: test-ns
  spec:
-   storageClassName: manual #nfs-storageclass
+   #storageClassName: manual #nfs-storageclass
    accessModes:
    - ReadWriteMany
    resources:
