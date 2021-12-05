@@ -28,9 +28,15 @@ spec:
             memory: "256Mi"
         env:
         - name: MONGO_DB_USERNAME
-          value: devdb
+          valueFrom:
+            configMapKeyRef:
+              name: springappconfigmap
+              key: username
         - name: MONGO_DB_PASSWORD
-          value: devdb@123
+          valueFrom:
+            secretKeyRef:
+              name: springappsecrets
+              key: password
         - name: MONGO_DB_HOSTNAME
           value: mongo
 ---
@@ -119,7 +125,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongoservice
+  name: mongo
   namespace: test-ns
 spec:
   type: ClusterIP
