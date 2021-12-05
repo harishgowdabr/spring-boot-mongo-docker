@@ -106,7 +106,10 @@ spec:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: devdb
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: devdb@123
+          valueFrom:
+            secretKeyRef:
+              name: springappsecrets
+              key: password
         volumeMounts:
       # - name: mongodbnfs
       #   mountPath: /data/db
