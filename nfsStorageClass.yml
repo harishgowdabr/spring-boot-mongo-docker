@@ -102,7 +102,7 @@ spec:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: nfs-storageclass # IMPORTANT pvc needs to mention this name
+  name: nfs-storageclass # IMPORTANT pvc needs to mention this name if it is nto default
   namespace: test-ns
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
