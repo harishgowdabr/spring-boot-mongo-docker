@@ -1,0 +1,15 @@
+pipeline{
+    stages{
+        stage('Cloing the code'){
+            step{
+                git branch: '${BRANCH_NAME}', credentialsId: '45ea0ad7-34b3-4ae2-8be8-0b1432262ead', 
+                url: 'https://github.com/harishgowdabr/spring-boot-mongo-docker.git'
+            }//step
+        }//stage
+
+        stage('Building the war file'){
+        sh "mvn clean package -DMaven.test.skip=true"
+        //mcn clean package -Dskip.Tests
+        }
+    }//stages
+}//pipeline
