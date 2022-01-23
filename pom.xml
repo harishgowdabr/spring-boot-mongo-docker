@@ -13,14 +13,53 @@
 	<groupId>com.mt</groupId>
 	<artifactId>spring-boot-mongo</artifactId>
 	<version>1.0</version>
+		<name>Spring_Boot_APP-DEV- ENV</name>
+	
+	<organization>
+		<name>Mithun Technologies</name>
+		<url>http://mithuntechnologies.com/</url>
+	</organization>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-boot.version>2.1.5.RELEASE</spring-boot.version>
+		<sonar.host.url>http://13.234.66.155:9000/</sonar.host.url>
+		<sonar.login>admin</sonar.login>
+		<sonar.password>admin</sonar.password> 
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 		<logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
 	</properties>
 
+	
+	<repositories>
+			<repository>
+			      <id>nexus</id>
+			      <name>Group Repo</name>
+			      <url>http://3.110.165.154:8081/repository/mss-group-repo/</url>
+			</repository>  
+	</repositories>
+	<dependencies>
+		
+<dependency>
+  <groupId>com.mss</groupId>
+  <artifactId>mail</artifactId>
+  <version>1.0.0</version>
+</dependency>
+	
+	
 	<dependencyManagement>
+		
+		<repository>
+	      <id>nexus</id>
+	      <name>Mithun Technologies Releases Nexus Repository</name>
+	      <url>http://3.110.165.154:8081/repository/Spring-Booth-Release/</url>
+	    </repository>
+	    
+	    <snapshotRepository>
+	      <id>nexus</id>
+	      <name>Mithun Technologies Snapshot Nexus Repository </name>
+	      <url>http://3.110.165.154:8081/repository/Spring-boot-Snapshot/</url>
+	    </snapshotRepository>
+		
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
