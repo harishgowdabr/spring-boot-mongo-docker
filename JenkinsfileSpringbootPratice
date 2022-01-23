@@ -1,6 +1,10 @@
 pipeline{
 
 agent any
+properties([parameters([choice(choices: ['master', 'dev'], description: 'Select  BranchName', name: 'BRANCH_NAME'), string(defaultValue: 'NA',
+description: 'Enter RevsionNumber', name: 'RevsionNumber')]), [$class: 'JobLocalConfiguration', changeReasonComment: ''],
+pipelineTriggers([pollSCM('* * * * *')])])
+
     stages{
         stage('Cloning the code'){
             steps{
