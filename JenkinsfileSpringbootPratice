@@ -14,8 +14,25 @@ maven 'maven-3.8.2'
         stage('Building the war file'){
         steps{
         sh "mvn clean package -DMaven.test.skip=true"
-        //mcn clean package -Dskip.Tests
+        //mvn clean package -Dskip.Tests
         }
         }
+        
+        stage('sonar Report'){
+        steps{
+        sh "mvn  sonar:sonar"
+     
+        }
+        }
+        
+        stage('INTO Remot Repo'){
+        steps{
+        sh "mvn clean deploy"
+     
+        }
+        }
+        
+        
+        
     }//stages
 }//pipeline
