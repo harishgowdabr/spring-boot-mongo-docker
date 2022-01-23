@@ -10,8 +10,10 @@ pipeline{
         }//stage
 
         stage('Building the war file'){
+        step{
         sh "mvn clean package -DMaven.test.skip=true"
         //mcn clean package -Dskip.Tests
+        }
         }
     }//stages
 }//pipeline
