@@ -1,6 +1,9 @@
 pipeline{
 
 agent any
+tools {
+maven 'maven-3.8.2'
+}
     stages{
         stage('Cloning the code'){
             steps{
