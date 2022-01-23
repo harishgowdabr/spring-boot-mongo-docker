@@ -28,7 +28,17 @@
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 		<logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
 	</properties>
-
+	<repository>
+	      <id>nexus</id>
+	      <name>Mithun Technologies Releases Nexus Repository</name>
+	      <url>http://3.110.165.154:8081/repository/Spring-Booth-Release/</url>
+	    </repository>
+	    
+	    <snapshotRepository>
+	      <id>nexus</id>
+	      <name>Mithun Technologies Snapshot Nexus Repository </name>
+	      <url>http://3.110.165.154:8081/repository/Spring-boot-Snapshot/</url>
+	    </snapshotRepository>
 	
 	<repositories>
 			<repository>
@@ -47,18 +57,6 @@
 	
 	
 	<dependencyManagement>
-		
-		<repository>
-	      <id>nexus</id>
-	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://3.110.165.154:8081/repository/Spring-Booth-Release/</url>
-	    </repository>
-	    
-	    <snapshotRepository>
-	      <id>nexus</id>
-	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://3.110.165.154:8081/repository/Spring-boot-Snapshot/</url>
-	    </snapshotRepository>
 		
 		<dependencies>
 			<dependency>
