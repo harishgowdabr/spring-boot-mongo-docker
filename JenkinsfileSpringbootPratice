@@ -1,10 +1,8 @@
 pipeline{
 
-properties([parameters([choice(choices: ['master', 'dev'], description: 'Select  BranchName', name: 'BRANCH_NAME'), string(defaultValue: 'NA',
-description: 'Enter RevsionNumber', name: 'RevsionNumber')]), [$class: 'JobLocalConfiguration', changeReasonComment: ''],
-pipelineTriggers([pollSCM('* * * * *')])])
+
     stages{
-        stage('Cloing the code'){
+        stage('Cloning the code'){
             step{
                 git branch: '${BRANCH_NAME}', credentialsId: '45ea0ad7-34b3-4ae2-8be8-0b1432262ead', 
                 url: 'https://github.com/harishgowdabr/spring-boot-mongo-docker.git'
