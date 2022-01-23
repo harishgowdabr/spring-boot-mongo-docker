@@ -4,8 +4,7 @@ agent any
     stages{
         stage('Cloning the code'){
             steps{
-                git branch: '${BRANCH_NAME}', credentialsId: '45ea0ad7-34b3-4ae2-8be8-0b1432262ead', 
-                url: 'https://github.com/harishgowdabr/spring-boot-mongo-docker.git'
+                git branch: '${BranchName}', credentialsId: '45ea0ad7-34b3-4ae2-8be8-0b1432262ead', url: 'https://github.com/harishgowdabr/spring-boot-mongo-docker.git'
             }//step
         }//stage
 
